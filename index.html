@@ -167,19 +167,73 @@ Użytkownik ma prawo dostępu do swoich danych oraz ich usunięcia.
 <div class="card">
 <h2>Konto użytkownika</h2>
 
-<input type="email" placeholder="Adres e-mail">
+<input type="email" id="email" placeholder="Adres e-mail">
 
-<input type="password" placeholder="Hasło">
+<input type="password" id="password" placeholder="Hasło">
 
-<button>Zarejestruj</button>
+<button onclick="register()">Zarejestruj</button>
 
-<button>Zaloguj</button>
+
+<button onclick="login()">Zaloguj</button>
 
 </div><p id="status"></p>
+<script type="module">
 
-<script>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+
+import {
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCdYKfGbieiIbXPmvBG8XsKNXrhQdsmDZk",
+  authDomain: "budujtaniej-48f81.firebaseapp.com",
+  projectId: "budujtaniej-48f81",
+  storageBucket: "budujtaniej-48f81.firebasestorage.app",
+  messagingSenderId: "1004917098674",
+  appId: "1:1004917098674:web:712784a60d8d15d46661ab",
+  measurementId: "G-ZDR0RLN52R"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.register = async function() {
+
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
+
+try {
+await createUserWithEmailAndPassword(auth,email,password);
 document.getElementById("status").innerHTML =
-"System kont użytkowników jest w przygotowaniu";
+"Rejestracja zakończona pomyślnie";
+}
+catch(error) {
+document.getElementById("status").innerHTML =
+error.message;
+}
+
+}
+
+window.login = async function() {
+
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
+
+try {
+await signInWithEmailAndPassword(auth,email,password);
+document.getElementById("status").innerHTML =
+"Zalogowano pomyślnie";
+}
+catch(error) {
+document.getElementById("status").innerHTML =
+error.message;
+}
+
+}
+
 </script>
 </body>
 </html>
