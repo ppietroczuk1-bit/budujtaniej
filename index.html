@@ -19,17 +19,8 @@ text-align:center;
 padding:60px 20px;
 }
 
-header h1{
-font-size:48px;
-margin:0;
-}
-
-header p{
-font-size:20px;
-}
-
 .container{
-max-width:1000px;
+max-width:1100px;
 margin:auto;
 padding:20px;
 }
@@ -37,34 +28,49 @@ padding:20px;
 .card{
 background:white;
 padding:25px;
-border-radius:10px;
+border-radius:12px;
 margin-top:20px;
 box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
 
-input, textarea{
+input, textarea, select{
 width:100%;
 padding:12px;
 margin-top:10px;
 margin-bottom:15px;
+box-sizing:border-box;
 }
 
 button{
 background:#0f766e;
 color:white;
 border:none;
-padding:15px 30px;
+padding:15px 25px;
+border-radius:6px;
 cursor:pointer;
-font-size:18px;
-border-radius:5px;
+font-size:16px;
+}
+
+button:hover{
+background:#0c5f59;
 }
 
 footer{
 background:#222;
 color:white;
-text-align:center;
 padding:20px;
 margin-top:30px;
+text-align:center;
+}
+
+.role-buttons{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.role-buttons button{
+flex:1;
 }
 </style>
 </head>
@@ -81,29 +87,82 @@ margin-top:30px;
 <div class="card">
 <h2>Dodaj inwestycję</h2>
 
-<input type="text" placeholder="Imię i nazwisko">
+<form action="https://formsubmit.co/ppietroczuk1@gmail.com" method="POST">
 
-<input type="email" placeholder="Adres e-mail">
+<input type="text" name="imie" placeholder="Imię i nazwisko" required>
 
-<textarea rows="6" placeholder="Opisz inwestycję"></textarea>
+<input type="email" name="email" placeholder="Adres e-mail" required>
 
-<button>Wyślij zgłoszenie</button>
+<select name="rodzaj">
+<option>Budowa domu</option>
+<option>Dach</option>
+<option>Elektryka</option>
+<option>Hydraulika</option>
+<option>Wykończenie wnętrz</option>
+</select>
+
+<textarea name="opis" rows="6" placeholder="Opisz inwestycję" required></textarea>
+
+<label>
+<input type="checkbox" required>
+Wyrażam zgodę na przetwarzanie danych osobowych zgodnie z RODO.
+</label>
+
+<br><br>
+
+<button type="submit">Wyślij zgłoszenie</button>
+
+</form>
 </div>
 
 <div class="card">
-<h2>Dla wykonawców</h2>
-<p>Znajduj nowe zlecenia budowlane i pozyskuj klientów.</p>
+<h2>Wybierz typ konta</h2>
+
+<div class="role-buttons">
+<button type="button">Jestem inwestorem</button>
+<button type="button">Jestem wykonawcą</button>
+</div>
+
 </div>
 
 <div class="card">
-<h2>RODO</h2>
-<p>Przesyłając formularz wyrażasz zgodę na przetwarzanie danych w celu kontaktu dotyczącego inwestycji.</p>
+<h2>Aktualne inwestycje</h2>
+
+<ul>
+<li>Budowa domu jednorodzinnego - Szczecin</li>
+<li>Budowa garażu - Gryfino</li>
+<li>Dach dwuspadowy - Stargard</li>
+<li>Instalacja elektryczna - Myślibórz</li>
+</ul>
+
+</div>
+
+<div class="card">
+<h2>Regulamin</h2>
+
+<p>
+Portal BudujTaniej.pl służy do publikacji ogłoszeń budowlanych.
+Użytkownik odpowiada za treść zamieszczonych zgłoszeń.
+Administrator serwisu nie jest stroną umów zawieranych pomiędzy użytkownikami.
+</p>
+
+</div>
+
+<div class="card">
+<h2>Polityka prywatności</h2>
+
+<p>
+Administratorem danych jest właściciel serwisu BudujTaniej.pl.
+Dane przekazane w formularzu są wykorzystywane wyłącznie do kontaktu dotyczącego inwestycji.
+Użytkownik ma prawo dostępu do swoich danych oraz ich usunięcia.
+</p>
+
 </div>
 
 </div>
 
 <footer>
-© 2026 BudujTaniej.pl
+© 2026 BudujTaniej.pl | Kontakt: ppietroczuk1@gmail.com
 </footer>
 
 </body>
