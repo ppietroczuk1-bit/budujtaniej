@@ -89,11 +89,11 @@ flex:1;
 
 <form action="https://formsubmit.co/ppietroczuk1@gmail.com" method="POST">
 
-<input type="text" name="imie" placeholder="Imię i nazwisko" required>
+<input type="text" id="inwestor" placeholder="Imię i nazwisko" required>
 
-<input type="email" name="email" placeholder="Adres e-mail" required>
+<input type="email" id="emailInwestycji" placeholder="Adres e-mail" required>
 
-<select name="rodzaj">
+<select id="rodzajInwestycji">
 <option>Budowa domu</option>
 <option>Dach</option>
 <option>Elektryka</option>
@@ -101,7 +101,7 @@ flex:1;
 <option>Wykończenie wnętrz</option>
 </select>
 
-<textarea name="opis" rows="6" placeholder="Opisz inwestycję" required></textarea>
+<textarea id="opisInwestycji" rows="6" placeholder="Opisz inwestycję" required></textarea>
 
 <label>
 <input type="checkbox" required>
@@ -110,7 +110,7 @@ Wyrażam zgodę na przetwarzanie danych osobowych zgodnie z RODO.
 
 <br><br>
 
-<button type="submit">Wyślij zgłoszenie</button>
+<button type="button" onclick="dodajInwestycje()">Wyślij zgłoszenie</button>
 
 </form>
 </div>
@@ -190,7 +190,9 @@ signInWithEmailAndPassword
 import {
 getFirestore,
 doc,
-setDoc
+setDoc,
+collection,
+addDoc
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 
@@ -242,7 +244,41 @@ error.message;
 }
 
 window.login = async function() {
+window.dodajInwestycje = async function() {
 
+const inwestor =
+document.getElementById("inwestor").value;
+
+const email =
+document.getElementById("emailInwestycji").value;
+
+const rodzaj =
+document.getElementById("rodzajInwestycji").value;
+
+const opis =
+document.getElementById("opisInwestycji").value;
+
+try {
+
+await addDoc(
+collection(db,"investments"),
+{
+inwestor: inwestor,
+email: email,
+rodzaj: rodzaj,
+opis: opis,
+dataDodania: new Date().toISOString()
+}
+);
+
+alert("Inwestycja została dodana!");
+
+}
+catch(error){
+alert(error.message);
+}
+
+}
 const email = document.getElementById("email").value;
 const password = document.getElementById("password").value;
 
