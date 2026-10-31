@@ -187,7 +187,11 @@ getAuth,
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-
+import {
+getFirestore,
+doc,
+setDoc
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 import {
 getFirestore,
 doc,
@@ -235,6 +239,8 @@ aktywny: true,
 dataRejestracji: new Date().toISOString()
 }
 );
+
+
 document.getElementById("status").innerHTML =
 "Rejestracja zakończona pomyślnie";
 }
