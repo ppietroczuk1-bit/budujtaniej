@@ -185,17 +185,20 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/fireba
 import {
 getAuth,
 createUserWithEmailAndPassword,
-signInWithEmailAndPassword
+signInWithEmailAndPassword,
+onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+import {
 import {
 getFirestore,
 doc,
 setDoc,
 collection,
 addDoc,
-getDocs
+getDocs,
+query,
+where
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyCdYKfGbieiIbXPmvBG8XsKNXrhQdsmDZk",
@@ -318,7 +321,43 @@ ${dane.opis}<br>
 document.getElementById("listaInwestycji").innerHTML = html;
 
 }
+async function pokazMojeInwestycje(userEmail) {
 
+const q = query(
+collection(db,"investments"),
+where("email","==",userEmail)
+);
+
+const querySnapshot = await getDocs(q);
+
+let html = "";
+
+querySnapshot.forEach((doc) => {
+
+const dane = doc.data();
+
+html += `
+<div style="border:1px solid #ddd;padding:10px;margin-bottom:10px;border-radius:8px;">
+<b>${dane.rodzaj}</b><br>
+${dane.opis}
+</div>
+`;
+
+});
+
+document.getElementById("mojeInwestycje").innerHTML = html;
+
+}
+
+onAuthStateChanged(auth,(user)=>{
+
+if(user){
+pokazMojeInwestycje(user.email);
+
+
+
+
+</div>
 pokazInwestycje();
 </script>
 </body>
