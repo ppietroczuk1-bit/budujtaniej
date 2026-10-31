@@ -170,7 +170,10 @@ Użytkownik ma prawo dostępu do swoich danych oraz ich usunięcia.
 <input type="email" id="email" placeholder="Adres e-mail">
 
 <input type="password" id="password" placeholder="Hasło">
-
+<select id="rola">
+  <option value="inwestor">Inwestor</option>
+  <option value="wykonawca">Wykonawca</option>
+</select>
 <button onclick="register()">Zarejestruj</button>
 
 
@@ -179,7 +182,17 @@ Użytkownik ma prawo dostępu do swoich danych oraz ich usunięcia.
 </div><p id="status"></p>
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+import {
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+setDoc
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 import {
 getAuth,
@@ -199,6 +212,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 window.register = async function() {
 
@@ -206,7 +220,21 @@ const email = document.getElementById("email").value;
 const password = document.getElementById("password").value;
 
 try {
+const userCredential =
 await createUserWithEmailAndPassword(auth,email,password);
+
+const rola =
+document.getElementById("rola").value;
+
+await setDoc(
+doc(db,"users",userCredential.user.uid),
+{
+email: email,
+rola: rola,
+aktywny: true,
+dataRejestracji: new Date().toISOString()
+}
+);
 document.getElementById("status").innerHTML =
 "Rejestracja zakończona pomyślnie";
 }
