@@ -192,7 +192,8 @@ getFirestore,
 doc,
 setDoc,
 collection,
-addDoc
+addDoc,
+getDocs
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 
@@ -293,7 +294,32 @@ error.message;
 }
 
 }
+async function pokazInwestycje() {
 
+const querySnapshot =
+await getDocs(collection(db,"investments"));
+
+let html = "";
+
+querySnapshot.forEach((doc) => {
+
+const dane = doc.data();
+
+html += `
+<div style="border:1px solid #ddd;padding:10px;margin-bottom:10px;border-radius:8px;">
+<b>${dane.rodzaj}</b><br>
+${dane.opis}<br>
+<small>${dane.inwestor}</small>
+</div>
+`;
+
+});
+
+document.getElementById("listaInwestycji").innerHTML = html;
+
+}
+
+pokazInwestycje();
 </script>
 </body>
 </html>
